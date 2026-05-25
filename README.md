@@ -15,21 +15,115 @@ The FileDeleter Tool GUI allows the user to select directories that need to be c
 - Deleting files from the selected directories.
 
 
-## Usage
-1. Start the FileDeleter.
+# Configuration File
 
-2. The GUI will launch, displaying the tree view window where the selected directories will be shown.
+A `config.txt` file is stored next to the program.
 
-3. To add new directories, click on the "add directory" button. It will open a file browser window where you can select the desired directory.
+Example:
 
-4. The selected directories will be added to the tree view window and will be enabled (the checkboxes will be checked).
+```txt
+false,H:\test1\test11
+true,H:\test1\test12
+true,H:\test1\test13\test131
+true,H:\test1\test14\test141
+```
 
-5. To remove directories from the list, select the respective directory in the tree view window and click on the "remove directory" button. The directory will be removed from the list.
+## Format
 
-6. To delete files from the selected directories, click on the "delete files" button. A confirmation dialog will appear to ensure that you want to delete all files in the marked directories. If you confirm, the files will be permanently deleted.
+```txt
+<enabled>,<directory-path>
+```
 
-7. If desired, you can manually edit the configuration file "config.txt". This file contains the list of selected directories and their status (enabled/disabled). You can add or remove directories or change their status by opening the file with a text editor and making the necessary changes.
+- `true` → directory is checked/selected in the UI
+- `false` → directory is unchecked in the UI
 
+---
+
+# Application Behavior
+
+When the application starts:
+
+- All folders from `config.txt` are loaded automatically
+- The application builds a tree structure from the folder paths
+- Checked state is restored from the configuration
+- Non-existing folders are displayed with a yellow warning symbol
+
+Example:
+
+- `true,H:\test1\test12`
+  → folder is selected in the UI
+
+- `false,H:\test1\test11`
+  → folder is not selected
+
+If a configured path does not exist anymore, the application still displays it with a warning icon ⚠.
+
+---
+
+# Buttons
+
+## Add Directory
+
+Add a new folder manually to the configuration and tree.
+
+## Remove Directory
+
+Remove a folder from the configuration and tree.
+
+This does NOT delete files or folders from the filesystem.
+
+## Delete Files
+
+Delete the contents of all selected directories.
+
+Only checked directories are processed.
+
+---
+
+# Requirements
+
+- Java 8+
+- Maven
+- JavaFX
+
+---
+
+# Build
+
+```bash
+mvn clean package
+```
+# Run
+
+```bash
+mvn javafx:run
+```
+
+# Run JAR File
+
+After building the project, the `target` folder contains two JAR files:
+
+```txt
+FileDeleter-{version}.jar
+FileDeleter-{version}-fat.jar
+```
+
+The recommended file to run is the **fat JAR**:
+
+```bash
+target/FileDeleter-{version}-fat.jar
+```
+
+The fat JAR contains the required dependencies and should run normally without problems.
+
+As an alternative, the `start.bat` file in the main project folder can also be used.
+
+Before using `start.bat`, make sure that:
+
+- the JAR file name is correct
+- the JAR version matches the generated file in the `target` folder
+- the JavaFX SDK path is correct
+- the JavaFX SDK path is adjusted for your local system
 ## Note
 - Make sure to back up important files before deleting files, as the deleted files cannot be recovered.
 
