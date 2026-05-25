@@ -14,6 +14,7 @@ The FileDeleter Tool GUI allows the user to select directories that need to be c
 - Removing directories from the list of directories to be cleaned up.
 - Deleting files from the selected directories.
 
+<img width="508" height="649" alt="image" src="https://github.com/user-attachments/assets/b28fe2b9-b4fa-4a73-8bd1-8c4eb3eb7420" />
 
 # Configuration File
 
