@@ -2,6 +2,7 @@ package main.java.de.deloma.filedeleter;
 
 import java.io.File;
 
+import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeItem;
 
 /**
@@ -27,22 +28,27 @@ public class TreeUtils
 		return null;
 	}
 	
-	public static <T> void optimizeNode(TreeItem<T> node)
-	{
-	
+	public static <T> void optimizeNode(TreeItem<T> node) {
+
 	    for (TreeItem<T> child : node.getChildren()) {
 	        optimizeNode(child);
 	    }
 
 	    if (node.getChildren().size() == 1) {
 	        TreeItem<T> child = node.getChildren().get(0);
-	        
-	        node.setValue(child.getValue()); 
-	        	        		        		        
-	        node.getChildren().setAll(child.getChildren()); 
 
+	        node.setValue(child.getValue());
+
+	        if (node instanceof CheckBoxTreeItem && child instanceof CheckBoxTreeItem) {
+	            CheckBoxTreeItem<T> nodeCheckBox = (CheckBoxTreeItem<T>) node;
+	            CheckBoxTreeItem<T> childCheckBox = (CheckBoxTreeItem<T>) child;
+
+	            nodeCheckBox.setSelected(childCheckBox.isSelected());
+	        }
+
+	        node.getChildren().setAll(child.getChildren());
 	    }
-	 }
+	}
 	
 
 	    public static String getRelativePath(String parentPath, String fullPath) {

@@ -1,3 +1,0 @@
-true,G:\deloma\deloma_7
-true,G:\deloma\deloma_8
-false,G:\deloma\deloma_9
